@@ -104,3 +104,4 @@ perf(db): 优化数据库查询性能
 4. Use Chinese for descriptions, English for technical terms
 5. Keep subject concise (max 50 characters)
 6. Add body if more context is needed
+7. Execute the commit: `git commit -m "<generated message>"`

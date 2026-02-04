@@ -7,6 +7,79 @@ description: Fetch API documentation from YApi platform by URL. Use when the use
 
 Fetch API documentation from YApi (https://yapi.nocode-tech.com) by providing single API URLs or category URLs.
 
+## When to Use This Skill
+
+Use this skill when you need to:
+
+- **Fetch API documentation** from YApi platform for development reference
+- **Read API specifications** including request/response schemas, parameters, and examples
+- **Retrieve multiple API endpoints** from a category for batch processing
+- **Understand API details** before implementing client-side integration
+- **Export API documentation** in raw JSON format for further processing or code generation
+- **Validate API contracts** by reviewing the latest documentation from YApi
+- **Compare API versions** by fetching documentation from different projects or categories
+
+This skill is particularly useful when:
+- You're provided with YApi URLs (e.g., `https://yapi.nocode-tech.com/project/853/interface/api/33460`)
+- You need to work with YApi-documented APIs in your development workflow
+- You want to automate API documentation retrieval instead of manually copying from the web interface
+
+## Quick Start
+
+Example 1 - Single API URL:
+```
+/read-yapi-url for https://yapi.nocode-tech.com/project/853/interface/api/33460
+```
+
+Example 2 - Multiple API URLs:
+```
+/read-yapi-url for https://yapi.nocode-tech.com/project/853/interface/api/33460, https://yapi.nocode-tech.com/project/853/interface/api/33462
+```
+
+Example 3 - Category URL:
+```
+/read-yapi-url for https://yapi.nocode-tech.com/project/853/interface/api/cat_5050
+```
+
+Example 4 - Mixed URLs:
+```
+/read-yapi-url for https://yapi.nocode-tech.com/project/226/interface/api/15604, https://yapi.nocode-tech.com/project/853/interface/api/cat_5050
+```
+
+## Prerequisites
+
+Before using this skill, you need to prepare the following:
+
+### 1. YApi Project Access
+
+Ensure you have access to the YApi projects you want to fetch documentation from. You should be able to visit the project pages on https://yapi.nocode-tech.com.
+
+### 2. Project Tokens
+
+Each YApi project requires a token for API access. To obtain project tokens:
+
+1. Visit your YApi project settings page: `https://yapi.nocode-tech.com/project/{project_id}/setting`
+2. Click on the "token 配置" (Token Configuration) tab
+3. Copy the project token displayed on that page
+
+### 3. Configure Environment Variables
+
+Add the project tokens to your shell configuration file (`~/.zshrc`, `~/.bashrc`, or equivalent):
+
+```bash
+export YAPI_PROJECT_TOKEN_853="your_token_here"
+export YAPI_PROJECT_TOKEN_226="your_token_here"
+```
+
+Replace `853` and `226` with your actual project IDs, and `your_token_here` with the corresponding tokens.
+
+After updating your shell configuration:
+```bash
+source ~/.zshrc  # or source ~/.bashrc
+```
+
+**Note**: You can also provide tokens interactively when prompted by the skill if you haven't set up environment variables in advance.
+
 ## Workflow
 
 When the user invokes this skill with YApi URLs, follow these steps:
@@ -69,28 +142,6 @@ For each URL:
 1. Display all raw JSON responses to the user
 2. Do NOT create any files
 3. Present data directly in the conversation
-
-## Usage Examples
-
-Example 1 - Single API URL:
-```
-/read-yapi-url for https://yapi.nocode-tech.com/project/853/interface/api/33460
-```
-
-Example 2 - Multiple API URLs:
-```
-/read-yapi-url for https://yapi.nocode-tech.com/project/853/interface/api/33460, https://yapi.nocode-tech.com/project/853/interface/api/33462
-```
-
-Example 3 - Category URL:
-```
-/read-yapi-url for https://yapi.nocode-tech.com/project/853/interface/api/cat_5050
-```
-
-Example 4 - Mixed URLs:
-```
-/read-yapi-url for https://yapi.nocode-tech.com/project/226/interface/api/15604, https://yapi.nocode-tech.com/project/853/interface/api/cat_5050
-```
 
 ## Scripts Reference
 
