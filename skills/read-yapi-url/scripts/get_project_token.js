@@ -34,7 +34,7 @@ if (token) {
              `Please set it in your shell configuration (e.g., .zshrc):\n` +
              `  export ${envVarName}="your_token_here"\n` +
              `\nTo get your token:\n` +
-             `  1. Visit https://yapi.nocode-tech.com/project/${projectId}/setting\n` +
+             `  1. Visit https://yapi.example.com/project/${projectId}/setting\n` +
              `  2. Select the "token 配置" tab\n` +
              `  3. Copy the token\n` +
              `  4. Add the export command to your shell configuration\n` +

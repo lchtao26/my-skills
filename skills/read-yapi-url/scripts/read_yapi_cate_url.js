@@ -2,7 +2,7 @@
 
 /**
  * Fetch category API list from YApi
- * Usage: node read_yapi_cate_url.js <url> <token>
+ * Usage: node read_yapi_cate_url.js <url> <token> [baseURL]
  * Returns: Raw JSON response from YApi API
  */
 
@@ -10,10 +10,11 @@ const https = require('https');
 
 const url = process.argv[2];
 const token = process.argv[3];
+const baseURL = process.argv[4] || 'yapi.example.com';
 
 if (!url || !token) {
   console.error('Error: URL and token are required');
-  console.error('Usage: node read_yapi_cate_url.js <url> <token>');
+  console.error('Usage: node read_yapi_cate_url.js <url> <token> [baseURL]');
   process.exit(1);
 }
 
@@ -30,7 +31,7 @@ if (!match || !match[1]) {
 const catId = match[1];
 
 // YApi OpenAPI endpoint: /api/interface/list_cat
-const apiUrl = `https://yapi.nocode-tech.com/api/interface/list_cat?token=${token}&catid=${catId}`;
+const apiUrl = `https://${baseURL}/api/interface/list_cat?token=${token}&catid=${catId}`;
 
 https.get(apiUrl, (res) => {
   let data = '';

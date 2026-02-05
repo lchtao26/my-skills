@@ -1,11 +1,11 @@
 ---
 name: read-yapi-url
-description: Fetch API documentation from YApi platform by URL. Use when the user asks to read, fetch, or get YApi API documentation, or provides YApi URLs like "https://yapi.nocode-tech.com/project/{id}/interface/api/{api_id}" or "https://yapi.nocode-tech.com/project/{id}/interface/api/cat_{cat_id}". Supports both single API URLs and category URLs. Returns raw API documentation data.
+description: Fetch API documentation from YApi platform by URL. Use when the user asks to read, fetch, or get YApi API documentation, or provides YApi URLs like "https://yapi.example.com/project/{id}/interface/api/{api_id}" or "https://yapi.example.com/project/{id}/interface/api/cat_{cat_id}". Supports both single API URLs and category URLs. Returns raw API documentation data.
 ---
 
 # Read YApi URL
 
-Fetch API documentation from YApi (https://yapi.nocode-tech.com) by providing single API URLs or category URLs.
+Fetch API documentation from YApi (https://yapi.example.com) by providing single API URLs or category URLs.
 
 ## When to Use This Skill
 
@@ -20,7 +20,7 @@ Use this skill when you need to:
 - **Compare API versions** by fetching documentation from different projects or categories
 
 This skill is particularly useful when:
-- You're provided with YApi URLs (e.g., `https://yapi.nocode-tech.com/project/853/interface/api/33460`)
+- You're provided with YApi URLs (e.g., `https://yapi.example.com/project/853/interface/api/33460`)
 - You need to work with YApi-documented APIs in your development workflow
 - You want to automate API documentation retrieval instead of manually copying from the web interface
 
@@ -28,22 +28,22 @@ This skill is particularly useful when:
 
 Example 1 - Single API URL:
 ```
-/read-yapi-url for https://yapi.nocode-tech.com/project/853/interface/api/33460
+/read-yapi-url for https://yapi.example.com/project/853/interface/api/33460
 ```
 
 Example 2 - Multiple API URLs:
 ```
-/read-yapi-url for https://yapi.nocode-tech.com/project/853/interface/api/33460, https://yapi.nocode-tech.com/project/853/interface/api/33462
+/read-yapi-url for https://yapi.example.com/project/853/interface/api/33460, https://yapi.example.com/project/853/interface/api/33462
 ```
 
 Example 3 - Category URL:
 ```
-/read-yapi-url for https://yapi.nocode-tech.com/project/853/interface/api/cat_5050
+/read-yapi-url for https://yapi.example.com/project/853/interface/api/cat_5050
 ```
 
 Example 4 - Mixed URLs:
 ```
-/read-yapi-url for https://yapi.nocode-tech.com/project/226/interface/api/15604, https://yapi.nocode-tech.com/project/853/interface/api/cat_5050
+/read-yapi-url for https://yapi.example.com/project/226/interface/api/15604, https://yapi.example.com/project/853/interface/api/cat_5050
 ```
 
 ## Prerequisites
@@ -52,13 +52,13 @@ Before using this skill, you need to prepare the following:
 
 ### 1. YApi Project Access
 
-Ensure you have access to the YApi projects you want to fetch documentation from. You should be able to visit the project pages on https://yapi.nocode-tech.com.
+Ensure you have access to the YApi projects you want to fetch documentation from. You should be able to visit the project pages on https://yapi.example.com.
 
 ### 2. Project Tokens
 
 Each YApi project requires a token for API access. To obtain project tokens:
 
-1. Visit your YApi project settings page: `https://yapi.nocode-tech.com/project/{project_id}/setting`
+1. Visit your YApi project settings page: `https://yapi.example.com/project/{project_id}/setting`
 2. Click on the "token 配置" (Token Configuration) tab
 3. Copy the project token displayed on that page
 
@@ -88,18 +88,19 @@ When the user invokes this skill with YApi URLs, follow these steps:
 
 For each URL provided:
 
-1. Run `scripts/verify_yapi_url.js <url>` to validate the URL format
-2. If validation fails, show the error message to the user and stop
-3. Valid URL patterns:
-   - Single API: `https://yapi.nocode-tech.com/project/{project_id}/interface/api/{api_id}`
-   - Category: `https://yapi.nocode-tech.com/project/{project_id}/interface/api/cat_{category_id}`
+1. Extract baseURL from the URL (e.g., `yapi.example.com` from `https://yapi.example.com/project/...`)
+2. Run `scripts/verify_yapi_url.js <url> [baseURL]` to validate the URL format
+3. If validation fails, show the error message to the user and stop
+4. Valid URL patterns:
+   - Single API: `https://{baseURL}/project/{project_id}/interface/api/{api_id}`
+   - Category: `https://{baseURL}/project/{project_id}/interface/api/cat_{category_id}`
 
 ### 2. Extract Project IDs
 
 For each valid URL:
 
-1. Run `scripts/get_project_id.js <url>` to extract the project ID
-2. Collect all unique project IDs from the URLs
+1. Run `scripts/get_project_id.js <url> [baseURL]` to extract the project ID
+2. Collect all unique project IDs and baseURLs from the URLs
 
 ### 3. Retrieve Project Tokens
 
@@ -108,7 +109,7 @@ For each unique project ID:
 1. Run `scripts/get_project_token.js <project_id>` to get the token from environment
 2. If token is not found:
    - Show the error message with instructions to the user
-   - Guide user to visit `https://yapi.nocode-tech.com/project/{project_id}/setting`
+   - Guide user to visit `https://yapi.example.com/project/{project_id}/setting`
    - Instruct to select "token 配置" tab and copy the token
    - Suggest adding to shell config: `export YAPI_PROJECT_TOKEN_{project_id}="token_here"`
    - Ask user to provide the token or set the environment variable
@@ -119,9 +120,9 @@ For each unique project ID:
 For each project token retrieved:
 
 1. Pick one URL from that project
-2. Run the appropriate fetch script with the token:
-   - For API URL: `scripts/read_yapi_api_url.js <url> <token>`
-   - For category URL: `scripts/read_yapi_cate_url.js <url> <token>`
+2. Run the appropriate fetch script with the token and baseURL:
+   - For API URL: `scripts/read_yapi_api_url.js <url> <token> [baseURL]`
+   - For category URL: `scripts/read_yapi_cate_url.js <url> <token> [baseURL]`
 3. If the token is invalid:
    - Show the error message to the user
    - Ask user to verify and provide the correct token
@@ -133,8 +134,8 @@ For each URL:
 
 1. Determine URL type (API or category)
 2. Run the appropriate script:
-   - For API URL: `scripts/read_yapi_api_url.js <url> <token>`
-   - For category URL: `scripts/read_yapi_cate_url.js <url> <token>`
+   - For API URL: `scripts/read_yapi_api_url.js <url> <token> [baseURL]`
+   - For category URL: `scripts/read_yapi_cate_url.js <url> <token> [baseURL]`
 3. Collect all raw responses
 
 ### 6. Present Results
@@ -149,14 +150,14 @@ All scripts accept command-line arguments and output JSON to stdout (success) or
 
 ### verify_yapi_url.js
 Validates YApi URL format.
-- Input: URL string
-- Output: JSON with `valid`, `type`, and `url` fields
+- Input: URL string, optional baseURL (defaults to `yapi.example.com`)
+- Output: JSON with `valid`, `type`, `url`, and `baseURL` fields
 - Exit code: 0 (valid), 1 (invalid)
 
 ### get_project_id.js
 Extracts project ID from YApi URL.
-- Input: URL string
-- Output: JSON with `project_id` and `url` fields
+- Input: URL string, optional baseURL (defaults to `yapi.example.com`)
+- Output: JSON with `project_id`, `url`, and `baseURL` fields
 - Exit code: 0 (success), 1 (error)
 
 ### get_project_token.js
@@ -167,14 +168,14 @@ Retrieves project token from environment variable `YAPI_PROJECT_TOKEN_{project_i
 
 ### read_yapi_api_url.js
 Fetches single API documentation from YApi OpenAPI.
-- Input: URL and token
+- Input: URL, token, optional baseURL (defaults to `yapi.example.com`)
 - Output: Raw YApi API response JSON
 - API endpoint: `/api/interface/get?token={token}&id={api_id}`
 - Exit code: 0 (success), 1 (error)
 
 ### read_yapi_cate_url.js
 Fetches category API list from YApi OpenAPI.
-- Input: URL and token
+- Input: URL, token, optional baseURL (defaults to `yapi.example.com`)
 - Output: Raw YApi API response JSON
 - API endpoint: `/api/interface/list_cat?token={token}&catid={cat_id}`
 - Exit code: 0 (success), 1 (error)
