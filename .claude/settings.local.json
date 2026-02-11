@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node scripts/verify_yapi_url.js:*)",
+      "Bash(node:*)",
+      "Bash(python3 /Users/nocode/.claude/skills/skill-creator/scripts/init_skill.py:*)",
+      "Bash(python3:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git checkout:*)"
+    ]
+  }
+}
