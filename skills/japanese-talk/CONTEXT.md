@@ -4,8 +4,12 @@ N3 Japanese reading practice through single-round, three-speaker opinion dialogu
 
 ## Language
 
+**Data store**:
+User-owned directory at `~/.japanese-talk/` holding runtime data (sessions and topic index). Separate from the skill package in the repo.
+_Avoid_: skill directory, cache dir, config dir
+
 **Session**:
-One complete dialogue run: one topic, one 場面, T asks once, A and B answer once. Saved as a file under `sessions/`.
+One complete dialogue run: one topic, one 場面, T asks once, A and B answer once. Saved as a file under `~/.japanese-talk/sessions/`.
 _Avoid_: lesson, episode, drill
 
 **場面 (Scene)**:
@@ -17,8 +21,12 @@ The well-defined discussion subject in Japanese. Must be everyday, date-aware (c
 _Avoid_: prompt, theme keyword (when meaning the saved title)
 
 **Topic index**:
-Append-only log (`topics-index.md`) of every completed topic title. Checked before every new session.
+Append-only log at `~/.japanese-talk/topics-index.md` — one line per completed session. Session files referenced by relative path `sessions/{filename}.md` from the data store root. Checked before every new session.
 _Avoid_: history, registry, database
+
+**Saved path**:
+The tilde-absolute path shown in chat after each session (e.g. `~/.japanese-talk/sessions/YYYY-MM-DD-slug.md`). Distinct from the relative paths used in the topic index.
+_Avoid_: workspace path, repo-relative path
 
 **T / A / B**:
 Role labels only — interviewer and two opinion speakers. Not recurring named characters.
