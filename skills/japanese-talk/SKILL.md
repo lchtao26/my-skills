@@ -33,6 +33,7 @@ N3 single-round opinion dialogues: **T → A → B**. Dialogue only — no vocab
 | Topics | Well-defined, common life, current-year framing; **no web search** |
 | T's invite | **Scene-dependent:** formal 場面 → direct (Aさん/Bさん or お二人); casual → open (みんな、〜どう思う？) |
 | Output | Japanese dialogue only in the script — no English gloss, no study notes |
+| Format | One blank line between **T**, **A**, and **B** lines in session files and chat |
 
 ## Session file template
 
@@ -45,7 +46,9 @@ level: N3
 ---
 
 T: …
+
 A: …
+
 B: …
 ```
 
@@ -58,7 +61,9 @@ B: …
 場面: {scene}
 
 T: …
+
 A: …
+
 B: …
 
 Saved: sessions/YYYY-MM-DD-slug.md
