@@ -1,0 +1,11 @@
+---
+name: gpt_review
+description: GPT-6.1-Sol xhigh 经 Orca review，改到不用再改。
+disable-model-invocation: true
+---
+
+# gpt_review
+
+用 Codex 的 GPT-6.1-Sol（`gpt-6.1-sol`，effort `xhigh`）review 当前任务。它只提改动，不改文件。你按 review 里仍成立的项改进，再 review。重复直到 review 认为无需再改，然后把最后一轮结论告诉用户。
+
+任务编排调用 Orca 的 `/orchestration` skill。
