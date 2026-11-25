@@ -8,4 +8,4 @@ disable-model-invocation: true
 
 用 Cursor 的 Grok 4.7 High（`grok-4.7-high`）实现当前任务。
 
-调用 Orca 来编排任务。
+任务编排调用 Orca 的 `/orchestration` skill。

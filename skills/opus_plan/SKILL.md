@@ -8,4 +8,4 @@ disable-model-invocation: true
 
 用 Cursor 的 Opus 5.5 Medium（`claude-opus-5-5-medium`）为当前任务做计划。它只出计划，不改文件。
 
-调用 Orca 来编排任务。
+任务编排调用 Orca 的 `/orchestration` skill。

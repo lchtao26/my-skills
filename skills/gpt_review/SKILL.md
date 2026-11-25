@@ -10,4 +10,4 @@ disable-model-invocation: true
 
 写进交给 Codex 的任务：由它自行选用 GPT-6 Luna Medium（`gpt-6-luna`，effort `medium`）作为 subagent。
 
-调用 Orca 来编排任务。
+任务编排调用 Orca 的 `/orchestration` skill。
