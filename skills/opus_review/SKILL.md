@@ -10,4 +10,4 @@ disable-model-invocation: true
 
 写进交给 Cursor 的任务：由它自行选用 `composer-2.5` 作为 subagent。
 
-任务编排调用 Orca 的 `/orchestration` skill。
+调用 Orca 来编排任务。

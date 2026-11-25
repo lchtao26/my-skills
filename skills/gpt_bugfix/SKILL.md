@@ -8,4 +8,4 @@ disable-model-invocation: true
 
 用 Codex 的 GPT-6.1-Sol（`gpt-6.1-sol`，effort `xhigh`）修复当前 bug。
 
-任务编排调用 Orca 的 `/orchestration` skill。
+调用 Orca 来编排任务。
